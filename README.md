@@ -205,43 +205,6 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
-# Screenshots
-
-## Login
-
-_Add Login Screenshot Here_
-
----
-
-## Dashboard
-
-_Add Dashboard Screenshot Here_
-
----
-
-## Customer Module
-
-_Add Customer Screenshot Here_
-
----
-
-## Employee Module
-
-_Add Employee Screenshot Here_
-
----
-
-## Lead Module
-
-_Add Lead Screenshot Here_
-
----
-
-## Task Module
-
-_Add Task Screenshot Here_
-
----
 
 # Future Enhancements
 
@@ -262,10 +225,10 @@ _Add Task Screenshot Here_
 **Divansh Arora**
 
 LinkedIn:
-(Add your LinkedIn URL)
+(https://www.linkedin.com/in/divansh-aroraa/)
 
 GitHub:
-https://github.com/YOUR_USERNAME
+https://github.com/Divansh-Arora
 
 Email:
 divansharora52@gmail.com
