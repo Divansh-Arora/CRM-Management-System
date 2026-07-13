@@ -18,7 +18,7 @@ public class CorsConfig {
 
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://crm-management-system-ten.vercel.app"
+                "https://crm-management-system-three.vercel.app/"
         ));
 
         configuration.setAllowedMethods(List.of(

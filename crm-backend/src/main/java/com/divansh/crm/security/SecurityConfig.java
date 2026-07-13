@@ -8,14 +8,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
+    private final CorsConfigurationSource corsConfigurationSource;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
+    public SecurityConfig(
+            JwtAuthenticationFilter jwtFilter,
+            CorsConfigurationSource corsConfigurationSource) {
+
         this.jwtFilter = jwtFilter;
+        this.corsConfigurationSource = corsConfigurationSource;
     }
 
     @Bean
@@ -28,24 +34,14 @@ public class SecurityConfig {
             throws Exception {
 
         http
-
-                // Enable CORS
-                .cors(cors -> {})
-
-                // Disable CSRF
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(csrf -> csrf.disable())
 
-                // Stateless JWT
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // Authorization
                 .authorizeHttpRequests(auth -> auth
-
-                        // Allow Preflight Requests
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        // Public APIs
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/swagger-ui/**",
@@ -54,17 +50,11 @@ public class SecurityConfig {
                                 "/v3/api-docs",
                                 "/error"
                         ).permitAll()
-
-                        // Secure Remaining APIs
                         .anyRequest().authenticated())
 
-                // Disable Login Page
                 .formLogin(form -> form.disable())
-
-                // Disable HTTP Basic
                 .httpBasic(httpBasic -> httpBasic.disable())
 
-                // JWT Filter
                 .addFilterBefore(
                         jwtFilter,
                         UsernamePasswordAuthenticationFilter.class);
