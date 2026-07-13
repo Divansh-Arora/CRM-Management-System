@@ -1,4 +1,4 @@
-package com.divansh.crm.dashboard.service.DashboardServiceImpl;
+package com.divansh.crm.dashboard.service;
 
 import com.divansh.crm.customer.entity.CustomerStatus;
 import com.divansh.crm.customer.repository.CustomerRepository;
