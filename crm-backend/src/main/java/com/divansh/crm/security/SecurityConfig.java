@@ -2,6 +2,7 @@ package com.divansh.crm.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,9 +39,13 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // Public APIs
+                // Authorization
                 .authorizeHttpRequests(auth -> auth
 
+                        // Allow Preflight Requests
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Public APIs
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/swagger-ui/**",
@@ -50,13 +55,13 @@ public class SecurityConfig {
                                 "/error"
                         ).permitAll()
 
-                        .anyRequest()
-                        .authenticated())
+                        // Secure Remaining APIs
+                        .anyRequest().authenticated())
 
                 // Disable Login Page
                 .formLogin(form -> form.disable())
 
-                // Disable Basic Authentication
+                // Disable HTTP Basic
                 .httpBasic(httpBasic -> httpBasic.disable())
 
                 // JWT Filter
